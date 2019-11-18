@@ -1,5 +1,6 @@
 package slin.castro.testing.conferencedemo.controllers;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +30,19 @@ public class SessionsController {
     @ResponseStatus(HttpStatus.CREATED)
     public Session create(@RequestBody final Session session){
         return sessionRepository.saveAndFlush(session);
+    }
+
+    @RequestMapping(value="{id}", method=RequestMethod.DELETE)
+    public void delete(@PathVariable Long id){
+        sessionRepository.deleteById(id);
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    public Session update(@PathVariable Long id, @RequestBody Session session){
+        // Put method expect that all the files are n the object, patch method only need some fields
+        //TODO: Add validation to all the atributes that are passed in
+        Session existingSession = sessionRepository.getOne(id);
+        BeanUtils.copyProperties(session, existingSession, "session_id");
+        return sessionRepository.saveAndFlush(existingSession);
     }
 }

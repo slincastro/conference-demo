@@ -1,5 +1,6 @@
 package slin.castro.testing.conferencedemo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -15,22 +16,22 @@ public class Speaker {
     private String last_name;
     private String title;
     private String company;
-
-    @Lob
-    @Type(type="org.hybernate.type.BinaryType")
     private String speaker_bio;
 
-    public byte[] getSpeaker_foto() {
-        return speaker_foto;
+    public byte[] getSpeaker_photo() {
+        return speaker_photo;
     }
 
-    public void setSpeaker_foto(byte[] speaker_foto) {
-        this.speaker_foto = speaker_foto;
+    public void setSpeaker_photo(byte[] speaker_foto) {
+        this.speaker_photo = speaker_foto;
     }
 
-    private byte[] speaker_foto;
+    @Lob
+    @Type(type="org.hibernate.type.BinaryType")
+    private byte[] speaker_photo;
 
     @ManyToMany(mappedBy = "speakers")
+    @JsonIgnore
     private List<Session> sessions;
 
     public Speaker() {
