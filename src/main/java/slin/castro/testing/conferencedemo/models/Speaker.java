@@ -1,5 +1,7 @@
 package slin.castro.testing.conferencedemo.models;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,7 +15,20 @@ public class Speaker {
     private String last_name;
     private String title;
     private String company;
+
+    @Lob
+    @Type(type="org.hybernate.type.BinaryType")
     private String speaker_bio;
+
+    public byte[] getSpeaker_foto() {
+        return speaker_foto;
+    }
+
+    public void setSpeaker_foto(byte[] speaker_foto) {
+        this.speaker_foto = speaker_foto;
+    }
+
+    private byte[] speaker_foto;
 
     @ManyToMany(mappedBy = "speakers")
     private List<Session> sessions;
