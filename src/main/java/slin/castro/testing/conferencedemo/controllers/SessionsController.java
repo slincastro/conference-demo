@@ -39,7 +39,6 @@ public class SessionsController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public Session update(@PathVariable Long id, @RequestBody Session session){
-        // Put method expect that all the files are n the object, patch method only need some fields
         //TODO: Add validation to all the atributes that are passed in
         Session existingSession = sessionRepository.getOne(id);
         BeanUtils.copyProperties(session, existingSession, "session_id");
