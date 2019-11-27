@@ -30,6 +30,7 @@ public class SpeakersController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Speaker create(@RequestBody final Speaker speaker){
+
         return speakerRepository.saveAndFlush(speaker);
     }
 

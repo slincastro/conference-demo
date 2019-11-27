@@ -29,7 +29,13 @@ public class SessionsController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Session create(@RequestBody final Session session){
-        return sessionRepository.saveAndFlush(session);
+        try{
+
+         return sessionRepository.saveAndFlush(session);
+
+        } catch (Exception e){}
+
+        return new Session();
     }
 
     @RequestMapping(value="{id}", method=RequestMethod.DELETE)
